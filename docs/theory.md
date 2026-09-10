@@ -75,13 +75,244 @@ For this model, we will make a few simplifying assumptions:
 
 These assumptions allow us to focus on the underlying physics of the system without introducing additinal complications.
 
+We can describe the double pendulum using the following variables:
+
 ### Masses
+
+$m_1$ - mass of the first pendulum in kg
+
+$m_2$ - mass of the second pendulum in kg
+
 ### Lengths
+
+$L_1$ - length of the first rod
+
+$L_2$ - length of the second rod
+
 ### Angles
+
+The angles $\theta_1$ and $\theta_2$ describe the orientation of each rod relative to the downward vertical direction in radians.
+
+The first angle, $\theta_1$, describes the position of the first rod. The second angle, $\theta_2$, describes the position of the second rod.
+
+These angles are measured **independtly from the vertical**, rather than measuring $\theta_2$ relative to the first rod.
+
 ### Coordinate system
+
+To calculate the motion of the pendulume, we will describe the positions of the two masses using Cartesian coordinates.
+
+Let's define:
+- $x$ as the horizontal direction
+- $y$ as the vertical direction
+- The fixed pivot as the origin, $(0,0)$
+- Positive $x$ as to the right
+- Positive $y$ as upward
+
+For the first mass, because it is connected directly to the fixed pivot by the first rod, its position is therefore determined by $L_1$ amd $\theta_1$, so its coordinates are
+
+$$
+x_1 = L_1\sin(\theta_1)
+$$
+
+$$
+y_1 = -L_1\cos(\theta_1)
+$$
+
+The second mass is attached to the end of the first rod. Its position depends on **both** pendulum angles. Its coordinates are
+
+$$
+x_2 = L_1\sin(\theta_1) + L_2\sin(\theta_2)
+$$
+
+$$
+y_2 = -L_1\cos(\theta_1) - L_2\sin(\theta_2)
+$$
+
+The coordinates will allow us to calculate quanities that we will need later. 
+
+For example, by differentiating the positon with respect to time, we can find the velocity of each mass.
+
+The velocities will allow us to calculate **kinetic energy**, while the vertical positions will allows us to calculate **potential energy**.
+
+These two forms of energy are the key ingredients needed to construct the Langrangian:
+
+$$
+\mathcal{L} = T - V
+$$
+
+In the next section, we will use these positions to derive the **kinetic energy** of the double pendulum.
+
 ### Diagram
 
+![Double pendulum setup](double_pendulum_diagram.png)
+
+*Figure 1: Diagram of the double pendulum system, showing the masses, rod lengths and angles measured from the downward vertical.
+
 ## 3. Kinetic Energy
+
+Kinetic energy is the energy an object has because it is moving.
+
+For an object with mass $m$ moving at speed $v$, its kinetic energy is given by
+
+$$
+KE = \frac{1}{2}mv^2
+$$
+
+In a double pendulum, both masses are moving, so the total kinetic energy is the sum of the kinetic energy of the two masses:
+
+$$
+KE = KE_1 * KE_2
+$$
+
+where $KE_1$ is the kinetic energy of the first mass and $KE_2$ is the kinetic energy of the second mass.
+
+### Kinetic Energy of the First Mass
+
+The velocity of the mass is how quickly its position changes with time. Therefore, we can find its horizontal and vertical velocty by differentiating its position with respect to time.
+
+For the horizontal direction:
+
+$$
+\dot{x}_1 = L_1\cos(\theta_1)\dot{\theta}_1
+$$
+
+For the vertical direction:
+
+$$
+\dot{y}_1 = L_1\sin(\theta_1)\dot{\theta}_1
+$$
+
+Here, $\dot{\theta}_1$ represents the rate at which $\theta_1$ changes with time. In other words, it is the **angular velocity** of the first pendulum.
+
+The speed of the first mass can be found from its horizontal and vertical velocity:
+
+$$
+v_1^2 = \dot{x}_1^2 + \dot{y}_1^2
+$$
+
+Substituting the expressions above gives
+
+$$
+v_1^2 = 
+L_1^2\cos^2(\theta_1)\dot{\theta}_1^2 
++
+L_1^2\sin^2(\theta_1)\dot{\theta}_1^2
+$$
+
+Factoring out the common terms:
+
+$$
+v_1^2 = 
+L_1^2\dot{\theta}_1^2
+\left[
+\cos^2(\theta_1)+\sin^2(\theta_1)
+\right]
+$$
+
+Using the trignometric identity
+
+$$
+\sin^2(\theta)+\cos^2(\theta)=1
+$$
+
+we obtain
+
+$$
+v_1^2 = L_1^2\dot{\theta}_1^2
+$$
+
+Therefore, the kinetic energy of the first mass is
+
+$$KE_1 = 
+\frac{1}{2}m_1L_1^2\dot{\theta}_1^2
+$$
+
+### Kinetic energy of the Second Mass
+
+The second mass is more complicated because its position depends on **both** pendulum angles.
+
+Differentiating with respect to time gives
+
+$$
+\dot{x}_2 = 
+L_1\cos(\theta_1)\dot{\theta}_1 
++ 
+L_2\cos(\theta_2)\dot{\theta}_2
+$$
+
+and
+
+$$
+\dot{y}_2 = 
+L_1\sin(\theta_1)\dot{\theta}_1 
++ 
+L_2\sin(\theta_2)\dot{\theta}_2
+$$
+
+The squared speed of the second mass is 
+
+$$
+v_2^2 = \dot{x}_2^2+\dot{y}_2^2
+$$
+
+Substituting and simplifying the expressions gives
+
+$$
+v_2^2 =
+L_1^2\dot{\theta}_1^2
++
+L_2^2\dot{\theta}_2^2
++
+2L_1L_2\dot{\theta}_1\dot{\theta}_2\cos(\theta_1-\theta_2)
+$$
+
+Therefore, the kinetic energy of the second mass is 
+
+$$
+KE_2 = 
+\frac{1}{2}m_2
+\left[
+L_1^2\dot{\theta}_1^2
++
+L_2^2\dot{\theta}_2^2
++
+2L_1L_2\dot{\theta}_1\dot{\theta}_2
+\cos(\theta_1-\theta_2
+\right]
+$$
+
+### Total Kinetic Energy
+
+The total kinetic energy is the sum of the expressions:
+
+$$
+KE = KE_1 + KE_2
+$$
+
+Therefore, 
+
+$$ 
+KE =
+\frac{1}{2}m_1L_1^2\dot{\theta}_1^2
++
+\frac{1}{2}m_2
+\left[
+L_1^2\dot{\theta}_1^2
++
+L_2^2\dot{\theta}_2^2
++
+2L_1L_2\dot{\theta}_1\dot{\theta}_2
+\cos(\theta_1-\theta_2)
+\right]
+$$
+
+This equation contains an important feature of the double pendulum.
+
+The final term shows that the motion of the two pendulums is **coupled**. The kinetic energy of the second mass depends on both angular velocities, $\dot{\theta}_1$ and $\dot{\theta}_2$.
+
+This coupling is one of the reasons why the double pendulum behaves very differently from two independent pendulums.
+
+In next section, we will calculate the **potential energy** of the system. 
 
 ## 4. Potential Energy
 
