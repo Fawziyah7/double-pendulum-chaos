@@ -316,7 +316,139 @@ In next section, we will calculate the **potential energy** of the system.
 
 ## 4. Potential Energy
 
+Potential energy is energy that an object has because of its position.
+
+For the double pendulum, we are interested in **gravitational potential energy**, which depends on the height of each mass.
+
+The gravitational potential energy of an object is
+
+$$
+PE = mgh
+$$
+
+where 
+- $m$ is the mass of the object
+- $g$ is the acceleration due to gravity
+- $h$ is the height of the object relative to a chosen reference point
+
+The choice of reference point does not matter. What matters is the difference in height between different positions.
+
+For our double pendulum, let's choose the fixed point as the point where $y=0$. Since the positive $y$ direction has been defined as upwards, the masses will have negative $y$ coordinates when they are below the pivot.
+
+### Potential Energy of the First Mass
+
+From Section 2, the vertical position of the first mass is
+
+$$
+y_1 = -L_1\cos(\theta_1)
+$$
+
+Since $y_1$ represents the height of the first mass relative to the pivot, we can substitute it into the gravitational potential energy equation:
+
+$$
+PE_1 = -m_1gL_1\cos(\theta_1)
+$$
+
+### Potential Energy of the Second Mass
+
+The vertical position of the first mass is
+
+$$
+y_2 = -L_1\cos(\theta_1)-L_2\cos(\theta_2)
+$$
+
+Substituting it into the gravitational potential energy equation gives
+
+$$
+PE_2 = m_2gy_2
+$$
+
+Therefore, 
+
+$$
+PE_2 = 
+-m_2g
+\left[
+L_1\cos(\theta_1)+L_2\cos(\theta_2)
+\right]
+$$
+
+### Total Potential Energy
+
+The total potential energy of the system is the sum of the potential energy of both masses:
+
+$$
+PE = PE_1 + PE_2
+$$
+
+Substituting the expressions above gives
+
+$$
+PE = 
+-m_1gL_1\cos(\theta_1)
++
+-m_2g
+\left[
+L_1\cos(\theta_1)+L_2\cos(\theta_2)
+\right]
+$$
+
+which can be written as
+
+$$
+PE =
+-(m_1+m_2)gL_1\cos(\theta_1)
+-m_2gL_2\cos(\theta_2)
+$$
+
+### Why Does Potential Energy Matter?
+
+We now have expressions for both Kinetic and Potential energy forms in the system. The double pendulum continuously exchanges energy between these two forms.
+
+For example, when a pendulum moves downward, gravitational potential energy decreases while kinetic energy generally increases. When it swings upwards, some of its kinetic energy is converted back into potential energy.
+
+Because we have assumed that there is no friction or air resistance, the **total mechanical energy** of the system remains constant:
+
+$$
+ME = KE + PE
+$$
+
+This conservation of energy will also provide a useful way of checking whether our numerical simulation is behaving correctly.
+
+In the next section, we will combine the kinetic and potential energies and use it to begin deriving the equations of motion.
+
 ## 5. The Lagrangian
+
+The Lagrangian is a quantity used in Lagrangian mechanics to describe the behaviour of a physical system. It is defined as the difference between the kinetic and potential energies:
+
+$$
+\mathcal{L} = KE - PE
+$$
+
+Unlike energy itself, the Lagrangian is not an energy that the system "has". Instead, it is a mathematical quantity that allows us to derive the equations describing how a system moves.
+
+### Constructing the Lagrangian
+
+Substituting the expressions for KE and PE into the Lagrangian gives
+
+$$
+\mathcal{L} =
+\frac{1}{2}m_1L_1^2\dot{\theta}_1^2
++
+\frac{1}{2}m_2
+\left[
+L_1^2\dot{\theta}_1^2
++
+L_2^2\dot{\theta}_2^2
++
+2L_1L_2\dot{\theta}_1\dot{\theta}_2
+\cos(\theta_1-\theta_2)
+\right]
++
+(m_1+m_2)gL_1\cos(\theta_1)
++
+m_2gL_2\cos(\theta_2)]
+
 
 ## 6. Euler-Lagrange Equations
 
