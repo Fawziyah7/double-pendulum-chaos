@@ -448,9 +448,320 @@ L_2^2\dot{\theta}_2^2
 (m_1+m_2)gL_1\cos(\theta_1)
 +
 m_2gL_2\cos(\theta_2)]
+$$
 
+### Why Do We Use the Lagrangian?
+
+At this point, we have a mathematical expression that contains everything we need to describe the energy of the double pendulum.
+
+However, the Lagrangian itself does not directly tell us how $\theta_1$ and $\theta_2$ change with time.
+
+To obtain the equations of motion, we use the **Euler-Lagrange** equation.
+
+For a system described by a generalised quantity $q$, the Euler-Lagrange equation is 
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}
+{\partial\dot{q}}
+\right) - 
+\frac{\partial\mathcal{L}}{\partial q}
+=0
+$$
+
+A **generalised coordinate** is simply a variable that describes the configuration of a system. For our double pendulum, the two generalised coordinates are the angles
+
+$$
+q_1 = \theta_1
+$$
+
+and 
+
+$$
+q_2 = \theta_2
+$$
+
+We therefore need to apply the Euler-Lagrange equation twice:
+
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}
+{\partial\dot{\theta}_1}
+\right)- 
+\frac{\partial\mathcal{L}}{\partial\theta_1}
+=0
+$$
+
+and 
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}
+{\partial\dot{\theta}_2}
+\right) - 
+\frac{\partial\mathcal{L}}{\partial\theta_2}
+=0
+$$
+
+These two equations will give us the equations of motion for the double pendulum. 
+
+The next section will work through these derivatives step by step.
 
 ## 6. Euler-Lagrange Equations
+
+Before carrying out the calculations, it is useful to understand what the different parts of the equation mean.
+
+The term
+
+$$
+\frac{\partial\mathcal{L}}{\partial q}
+$$
+
+means that we take the **partial derivative** of the Lagrangian with respect to the coordinate $q$.
+
+A partial derivative is used when a function depends on several variables, but we want to see how it changes with respect to just one of them while treating the others as constant.
+
+Similarly,
+
+$$
+\frac{\partial\mathcal{L}}{\partial\dot{q}}
+$$
+
+describes how the Lagrangian changes with respect to the **angular velocity** $\dot{q}$.
+
+We then take the time derivative of this quantity:
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}{\partial\dot{q}}
+\right)
+$$
+
+The Euler-Lagrange equation states that the difference between these two terms is zero.
+
+For the double pendulum, this process gives us two coupled equations describing the motion of the two angles.
+
+### Applying the Equation to $\theta_1$
+
+For the first pendulum, we set
+
+$$
+q=\theta_1
+$$
+
+The Euler–Lagrange equation therefore becomes
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_1}
+\right) 
+-\frac{\partial\mathcal{L}}{\partial\theta_1}
+=0
+$$
+
+We first calculate
+
+$$
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_1}
+$$
+
+Starting with the Lagrangian from Section 5,
+
+$$
+\mathcal{L} =
+\frac{1}{2}m_1L_1^2\dot{\theta}_1^2
++
+\frac{1}{2}m_2
+\left[
+L_1^2\dot{\theta}_1^2
++
+L_2^2\dot{\theta}_2^2
++
+2L_1L_2\dot{\theta}_1\dot{\theta}_2
+\cos(\theta_1-\theta_2)
+\right]
++
+(m_1+m_2)gL_1\cos(\theta_1)
++
+m_2gL_2\cos(\theta_2)
+$$
+
+When differentiating with respect to $\dot{\theta}_1$, we treat everything that does not contain $\dot{\theta}_1$ as constant.
+
+This gives
+
+$$
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_1} =
+m_1L_1^2\dot{\theta}_1
++
+m_2L_1^2\dot{\theta}_1
++
+m_2L_1L_2\dot{\theta}_2
+\cos(\theta_1-\theta_2)
+$$
+
+which can be written as
+
+$$
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_1} =
+(m_1+m_2)L_1^2\dot{\theta}_1
++
+m_2L_1L_2\dot{\theta}_2
+\cos(\theta_1-\theta_2)
+$$
+
+We then take the derivative with respect to time:
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_1}
+\right)
+$$
+
+This requires the product rule and the chain rule, because both $\dot{\theta}_2$ and $\cos(\theta_1-\theta_2)$ can change with time.
+
+After differentiating,
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_1}
+\right) =
+(m_1+m_2)L_1^2\ddot{\theta}_1
++
+m_2L_1L_2
+\left[
+\ddot{\theta}_2\cos(\theta_1-\theta_2)
+\dot{\theta}_2(\dot{\theta}_1-\dot{\theta}_2)
+\sin(\theta_1-\theta_2)
+\right]
+$$
+
+where $\ddot{\theta}_1$ and $\ddot{\theta}_2$ represent the angular accelerations of the two pendulums.
+
+Next, we calculate
+
+$$
+\frac{\partial\mathcal{L}}{\partial\theta_1}
+$$
+
+Differentiating the Lagrangian with respect to $\theta_1$ gives
+
+$$
+\frac{\partial\mathcal{L}}{\partial\theta_1} = 
+-m_2L_1L_2\dot{\theta}_1\dot{\theta}_2
+\sin(\theta_1-\theta_2)
+(m_1+m_2)gL_1\sin(\theta_1)
+$$
+
+Substituting these expressions into the Euler–Lagrange equation gives the first equation of motion:
+
+$$
+(m_1+m_2)L_1^2\ddot{\theta}_1
++
+m_2L_1L_2\ddot{\theta}_2
+\cos(\theta_1-\theta_2)
++
+m_2L_1L_2\dot{\theta}_2^2
+\sin(\theta_1-\theta_2)
++
+(m_1+m_2)gL_1\sin(\theta_1)
+=0
+$$
+
+### Applying the Equation to $\theta_2$
+
+We now repeat the same process for the second pendulum.
+
+Set
+
+$$
+q=\theta_2
+$$
+
+giving
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_2}
+\right) -
+\frac{\partial\mathcal{L}}{\partial\theta_2}
+=0
+$$
+
+First,
+
+$$
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_2} =
+m_2L_2^2\dot{\theta}_2
++
+m_2L_1L_2\dot{\theta}_1
+\cos(\theta_1-\theta_2)
+$$
+
+Taking the derivative with respect to time gives
+
+$$
+\frac{d}{dt}
+\left(
+\frac{\partial\mathcal{L}}{\partial\dot{\theta}_2}
+\right) =
+m_2L_2^2\ddot{\theta}_2
++
+m_2L_1L_2
+\left[
+\ddot{\theta}_1\cos(\theta_1-\theta_2)
+\dot{\theta}_1(\dot{\theta}_1-\dot{\theta}_2)
+\sin(\theta_1-\theta_2)
+\right]
+$$
+
+The partial derivative of the Lagrangian with respect to $\theta_2$ is
+
+$$
+\frac{\partial\mathcal{L}}{\partial\theta_2} =
+m_2L_1L_2\dot{\theta}_1\dot{\theta}_2
+\sin(\theta_1-\theta_2)
+m_2gL_2\sin(\theta_2)
+$$
+
+Substituting these into the Euler–Lagrange equation and simplifying gives the second equation of motion:
+
+$$
+m_2L_2^2\ddot{\theta}_2
++
+m_2L_1L_2\ddot{\theta}_1
+\cos(\theta_1-\theta_2)
+m_2L_1L_2\dot{\theta}_1^2
+\sin(\theta_1-\theta_2)
++
+m_2gL_2\sin(\theta_2)
+=0
+$$
+
+### The Coupled Equations
+
+We have now derived two equations describing the motion of the double pendulum.
+
+The important feature is that the equations are coupled.
+
+The first equation contains $\ddot{\theta}_2$, while the second contains $\ddot{\theta}_1$.
+
+This means that the acceleration of one pendulum depends on the motion of the other. The two pendulums cannot therefore be treated as independent systems.
+
+This coupling is central to the behaviour of the double pendulum and ultimately contributes to its chaotic motion.
+
+However, these equations are not yet in a form that is particularly convenient for a computer to solve. The angular accelerations $\ddot{\theta}_1$ and $\ddot{\theta}_2$ appear in both equations.
+
+In the next section, we will rearrange these equations to solve explicitly for the angular accelerations. These are the equations that we will eventually give to the numerical solver in Python.
 
 ## 7. Equations of Motion
 
