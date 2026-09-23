@@ -765,6 +765,313 @@ In the next section, we will rearrange these equations to solve explicitly for t
 
 ## 7. Equations of Motion
 
+### Simplifying the Equations
+
+From Section 6, the equations of motion are
+
+$$
+(m_1+m_2)L_1\ddot{\theta}_1
++
+m_2L_2\ddot{\theta}_2\cos(\theta_1-\theta_2)
++
+m_2L_2\dot{\theta}_2^2\sin(\theta_1-\theta_2)
++
+(m_1+m_2)g\sin(\theta_1)
+=0
+$$
+
+and
+
+$$
+L_2^2\ddot{\theta}_2
++
+L_1L_2\ddot{\theta}_1\cos(\theta_1-\theta_2)
++
+L_1L_2\dot{\theta}_1^2\sin(\theta_1-\theta_2)
++
+gL_2\sin(\theta_2)
+=0.
+$$
+
+These equations are coupled because each equation contains both (\ddot{\theta}_1) and (\ddot{\theta}_2).
+
+For convenience, let us define
+
+$$
+\Delta=\theta_1-\theta_2.
+$$
+
+The equations then become
+
+$$
+(m_1+m_2)L_1\ddot{\theta}_1
++
+m_2L_2\cos(\Delta)\ddot{\theta}_2
+-(m_1+m_2)g\sin(\theta_1)
+m_2L_2\dot{\theta}_2^2\sin(\Delta)
+$$
+
+and
+
+$$
+L_1L_2\cos(\Delta)\ddot{\theta}_1
++
+L_2^2\ddot{\theta}_2
++
+L_1L_2\dot{\theta}_1^2\sin(\Delta)
++
+gL_2\sin(\theta_2).
+$$
+
+### Explicit Equations for the Angular Accelerations
+
+Solving these two equations simultaneously gives an expression for the first angular acceleration:
+
+$$
+\boxed{
+\ddot{\theta}_1 =
+\frac{
+-m_2L_1\dot{\theta}_1^2\sin(\Delta)\cos(\Delta)
+-m_2L_2\dot{\theta}_2^2\sin(\Delta)
+-(m_1+m_2)g\sin(\theta_1)
++m_2g\sin(\theta_2)\cos(\Delta)
+}{
+L_1\left(m_1+m_2-m_2\cos^2(\Delta)\right)
+}
+}
+$$
+
+Similarly, the second angular acceleration is
+
+$$
+\boxed{
+\ddot{\theta}_2 =
+\frac{
+(m_1+m_2)L_1\dot{\theta}_1^2\sin(\Delta)
++m_2L_2\dot{\theta}_2^2\sin(\Delta)\cos(\Delta)
++(m_1+m_2)g\sin(\theta_1)\cos(\Delta)
+-(m_1+m_2)g\sin(\theta_2)
+}{
+L_2\left(m_1+m_2-m_2\cos^2(\Delta)\right)
+}
+}
+$$
+
+These two equations are the main equations of motion used by the simulation.
+
+These will tell us how the angular accelerations depend on:
+
+- the masses (m_1) and (m_2)
+- the rod lengths (L_1) and (L_2)
+- the current angles (\theta_1) and (\theta_2)
+- the current angular velocities (\dot{\theta}_1) and (\dot{\theta}_2)
+- gravitational acceleration (g)
+
+
+### What the Equations Tell Us
+
+The equations demonstrate why the double pendulum is more complicated than two independent pendulums.
+
+For example, (\ddot{\theta}_1) depends not only on (\theta_1) and (\dot{\theta}_1), but also on (\theta_2) and (\dot{\theta}_2). The same is true in reverse for (\ddot{\theta}_2).
+
+The terms involving
+
+$$
+\sin(\theta_1-\theta_2)
+$$
+
+and
+
+$$
+\cos(\theta_1-\theta_2)
+$$
+
+describe the coupling between the two pendulums.
+
+Because the equations are nonlinear, small changes in the initial conditions can eventually produce very different trajectories. This sensitivity to initial conditions is one of the defining features of chaotic motion.
+
+These equations provide the mathematical model that will be passed to a numerical solver in the next section.
+
 ## 8. Numerical Solution
 
-## 9. From Equations to Python
+The equations of motion from the previous section give us the angular accelerations of the two pendulums. However, these equations cannot generally be solved analytically for the complete motion of the double pendulum.
+
+Instead, we can use numerical integration to approximate the motion over time.
+
+### Converting the Equations into First-Order Equations
+
+The equations of motion contain second derivatives:
+
+$$
+\ddot{\theta}_1
+$$
+
+and
+
+$$
+\ddot{\theta}_2.
+$$
+
+Numerical solvers such as the ones available in SciPy are designed to work with systems of first-order differential equations.
+
+I therefore introduce the angular velocities
+
+$$
+\omega_1=\dot{\theta}_1
+$$
+
+and
+
+$$
+\omega_2=\dot{\theta}_2.
+$$
+
+This gives
+
+$$
+\dot{\theta}_1=\omega_1
+$$
+
+$$
+\dot{\theta}_2=\omega_2
+$$
+
+and
+
+$$
+\dot{\omega}_1=\ddot{\theta}_1
+$$
+
+$$
+\dot{\omega}_2=\ddot{\theta}_2.
+$$
+
+The state of the system can now be represented by four variables:
+
+$$
+\mathbf{y}
+\begin{bmatrix}
+\theta_1\
+\theta_2\
+\omega_1\
+\omega_2
+\end{bmatrix}.
+$$
+
+The derivative of this state is therefore
+
+$$
+\frac{d\mathbf{y}}{dt}
+\begin{bmatrix}
+\omega_1\
+\omega_2\
+\ddot{\theta}_1\
+\ddot{\theta}_2
+\end{bmatrix}.
+$$
+
+The expressions for $(\ddot{\theta}_1)$ and $(\ddot{\theta}_2)$ come directly from the equations of motion derived in Section 7.
+
+### Initial Conditions
+
+A differential equation needs an initial state before its evolution can be calculated.
+
+For the double pendulum, this means specifying:
+
+- the initial angle of the first pendulum, $\theta_1(0)$
+- the initial angle of the second pendulum, $\theta_2(0)$
+- the initial angular velocity of the first pendulum, $\omega_1(0)$
+- the initial angular velocity of the second pendulum, $\omega_2(0)$
+
+For example, we could start with
+
+$$
+\theta_1(0)=90^\circ
+$$
+
+$$
+\theta_2(0)=90^\circ
+$$
+
+and both pendulums initially stationary:
+
+$$
+\omega_1(0)=0
+$$
+
+$$
+\omega_2(0)=0.
+$$
+
+Since Python’s trigonometric functions use radians, the angles must be converted before being used in the simulation:
+
+$$
+90^\circ=\frac{\pi}{2}.
+$$
+
+Therefore, the initial state used by the program would be
+
+$$
+\mathbf{y}(0)
+\begin{bmatrix}
+\frac{\pi}{2}\
+\frac{\pi}{2}\
+0\
+0
+\end{bmatrix}.
+$$
+
+### Numerical Integration
+
+Once the equations and initial conditions have been defined, a numerical solver can approximate the state of the system at later times.
+
+Conceptually, the process is:
+
+1. Start with the initial state of the pendulum.
+2. Calculate the angular accelerations using the equations of motion.
+3. Use these accelerations to determine how the angular velocities change.
+4. Use the angular velocities to determine how the angles change.
+5. Repeat this process over many small time intervals.
+The result is a numerical approximation of
+
+$$
+\theta_1(t),\qquad
+\theta_2(t),\qquad
+\omega_1(t),\qquad
+\omega_2(t).
+$$
+
+These values allow us to reconstruct the position and motion of both masses throughout the simulation.
+
+### Numerical Accuracy
+
+A numerical solution is an approximation rather than an exact solution. The accuracy depends partly on the numerical integration method and the tolerances used by the solver.
+
+This is particularly important for a chaotic system such as the double pendulum. Small numerical errors can grow over time because the system is sensitive to its initial conditions.
+
+For this reason, the simulation can be checked using conservation of energy.
+
+For the idealised system used in this project, there is no friction or air resistance, so the total mechanical energy should remain approximately constant:
+
+$$
+E=KE+PE.
+$$
+
+A plot of total energy against time can therefore be used as a diagnostic tool. If the numerical solution is behaving well, the total energy should remain close to its initial value, apart from small numerical errors.
+
+### From Mathematics to Code
+
+At this point, the mathematical model is complete.
+
+We have:
+
+- defined the geometry of the double pendulum
+- derived its kinetic energy
+- derived its potential energy
+- constructed the Lagrangian
+- used the Euler–Lagrange equations to derive the equations of motion
+- rearranged the equations to calculate the angular accelerations
+- converted the system into a form suitable for numerical integration
+The next step is to implement this model in Python.
+
+The Python program will define the physical parameters and equations of motion, use a numerical solver to integrate the system, and then analyse and visualise the resulting data.
