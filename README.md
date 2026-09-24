@@ -19,7 +19,7 @@ This project is organised to be read in order, from theory through to final outp
 
 ## Where This Project Is Right Now
 
-The theory and simulation stages are complete — the Python simulation runs and generates a real dataset (`.csv`) from the double pendulum's motion, documented in the notebook in `02-simulation`.
+The theory and simulation stages are complete — the Python simulation runs and generates a real dataset (`.csv`) from the double pendulum's motion, documented in the notebook in `02-notebooks`.
 
 I'm currently extending the project through the analysis, cleaning and dashboard stages, applying SQL, Excel and Power BI to the dataset the simulation produced. I'm building this project specifically to bring together the full set of tools I've been developing, from generating data through to presenting it clearly.
 
