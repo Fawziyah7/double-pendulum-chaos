@@ -4,7 +4,7 @@ A physics-to-data-analysis project simulating the motion of a double pendulum, g
 
 The goal of this project is to combine my physics background with the practical data toolkit I've been building: Python for simulation, SQL for analysis, Excel for data cleaning, and Power BI for visualisation. These skills are used to put a single, complete example of turning a raw dataset into a clear, useful output.
 
-![Double pendulum trajectory](./assets/plotting double pendulum trajectories.png)
+![Double pendulum trajectory](./assets/double-pendulum-trajectory.png)
 
 ## Project Structure
 
