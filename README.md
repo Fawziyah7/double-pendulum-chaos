@@ -38,4 +38,4 @@ A double pendulum is a simple mechanical system that produces genuinely chaotic 
 
 - Complete the SQL analysis of the simulation dataset
 - Clean and validate the dataset in Excel
-- Build the Power BI dashboard and add a preview image here
+- Build the Power BI dashboard
