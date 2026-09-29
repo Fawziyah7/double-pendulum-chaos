@@ -25,7 +25,7 @@ I'm currently extending the project through the analysis, cleaning and dashboard
 
 ## Why a Double Pendulum
 
-A double pendulum is a simple mechanical system that produces genuinely chaotic motion, small changes in starting angle lead to wildly different outcomes. That made it a good candidate for this project: it's a real physics problem I understand well, but the data it produces is rich enough to be genuinely interesting to explore, clean and visualise, rather than a generic dataset with no context behind it.
+A double pendulum is a simple mechanical system that produces genuinely chaotic motion, small changes in starting angle lead to wildly different outcomes. That made it a good candidate for this project: it's a real physics problem I understand well, but the data it produces is rich enough to be genuinely interesting to explore, clean and visualise.
 
 ## Tools Used
 
