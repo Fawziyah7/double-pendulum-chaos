@@ -13,9 +13,9 @@ This project is organised to be read in order, from theory through to final outp
 1. **[`01-theory`](./01-theory)** — Background on the double pendulum system, the equations of motion, and why its behaviour becomes chaotic under certain initial conditions.
 2. **[`02-notebooks`](./02-notebooks)** — Python code that simulates the pendulum's motion and generates the underlying dataset (angles, angular velocities, and positions over time, across a range of initial conditions).
 3. **[`03-data`](./03-data)** - Data generated using Python code in Google Colab
-4. **[`03-analysis`](./03-analysis)** — SQL queries used to explore and analyse the generated dataset. *(In progress)*
-5. **[`04-cleaning`](./04-cleaning)** — Excel-based data cleaning and validation of the dataset ahead of visualisation. *(In progress)*
-6. **[`05-dashboard`](./05-dashboard)** — A Power BI dashboard built on the cleaned dataset, visualising key patterns in the pendulum's motion. *(In progress)*
+4. **[`04-analysis`](./04-analysis)** — SQL queries used to explore and analyse the generated dataset. *(In progress)*
+5. **[`05-cleaning`](./05-cleaning)** — Excel-based data cleaning and validation of the dataset ahead of visualisation. *(In progress)*
+6. **[`06-dashboard`](./06-dashboard)** — A Power BI dashboard built on the cleaned dataset, visualising key patterns in the pendulum's motion. *(In progress)*
 
 ## Where This Project Is Right Now
 
@@ -30,7 +30,7 @@ A double pendulum is a simple mechanical system that produces genuinely chaotic 
 ## Tools Used
 
 - **Python** (NumPy, Matplotlib) — simulation and data generation
-- **SQL** — data exploration and analysis *(in progress)*
+- **SQL** — data exploration and analysis
 - **Excel** — data cleaning and validation *(in progress)*
 - **Power BI** — dashboard and visualisation *(in progress)*
 
